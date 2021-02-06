@@ -1,5 +1,5 @@
-import express, { Request, Response} from 'express'
-import { addCourierCtrl, editCourierCtrl, removeCourierCtrl } from '../controller'
+import express from 'express'
+import { addCourierCtrl, editCourierCtrl, getCouriersWithCapacityCtrl, removeCourierCtrl } from '../controller'
 
 
 const router = express.Router()
@@ -10,8 +10,6 @@ router.delete('/couriers', removeCourierCtrl)
 
 router.put('/couriers', editCourierCtrl)
 
-router.get('/couriers/lookup', (req: Request, res: Response) => {
-  res.send('get couriers with required capacity route')
-})
+router.get('/couriers/lookup', getCouriersWithCapacityCtrl)
 
 export default router

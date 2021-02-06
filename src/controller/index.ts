@@ -45,5 +45,16 @@ const editCourierCtrl = async (req: Request, res: Response) => {
   }
 }
 
+const getCouriersWithCapacityCtrl = async (req: Request, res: Response) => {
+  try {
+    const { capacity_required } = req.body
+    const result = await Courier.find({ current_capacity: { $gte: capacity_required }})
+    if (!result.length) throw new Error('No couriers have required capacity')
+    res.send(result)
+  } catch (error) {
+    res.send(error.message)
+  }
+}
 
-export { addCourierCtrl, removeCourierCtrl, editCourierCtrl }
+
+export { addCourierCtrl, removeCourierCtrl, editCourierCtrl, getCouriersWithCapacityCtrl }
