@@ -19,4 +19,17 @@ const addCourierCtrl = async (req: Request, res: Response) => {
   }
 }
 
-export { addCourierCtrl}
+const removeCourierCtrl = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.body
+    if (!id) throw new Error('No courier id provided')
+    const { deletedCount } = await Courier.deleteOne({ id })
+    if (deletedCount === 0) throw new Error(`No courier with id: ${id} found`)
+    else res.send(`Courier id: ${id} deleted`)
+  } catch (error) {
+    res.send(error.message)
+  }
+}
+
+
+export { addCourierCtrl, removeCourierCtrl }

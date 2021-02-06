@@ -1,14 +1,12 @@
 import express, { Request, Response} from 'express'
-import { addCourierCtrl } from '../controller'
+import { addCourierCtrl, removeCourierCtrl } from '../controller'
 
 
 const router = express.Router()
 
 router.post('/couriers', addCourierCtrl)
 
-router.delete('/couriers', (req: Request, res: Response) => {
-  res.send('delete couriers route')
-})
+router.delete('/couriers', removeCourierCtrl)
 
 router.put('/couriers', (req: Request, res: Response) => {
   res.send('edit couriers route')
