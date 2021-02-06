@@ -14,6 +14,7 @@ app.use(express.json())
 app.use(router)
 
 mongoose.connect('mongodb://localhost/couriers', {useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.set('useFindAndModify', false)
 
 const db = mongoose.connection
 db.on('error', console.error.bind(console, 'connection error:'))

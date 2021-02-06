@@ -1,4 +1,10 @@
-import mongoose from 'mongoose'
+import mongoose, {Document} from 'mongoose'
+
+export interface CourierInterface extends Document {
+  id: string,
+  max_capacity: number,
+  current_capacity: number,
+}
 
 const courierSchema = new mongoose.Schema({
   id: String,
@@ -6,6 +12,6 @@ const courierSchema = new mongoose.Schema({
   current_capacity: Number
 })
 
-const Courier = mongoose.model('Courier', courierSchema)
+const Courier = mongoose.model<CourierInterface>('Courier', courierSchema)
 
 export default Courier

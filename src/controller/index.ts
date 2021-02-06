@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import Courier from '../model'
+import Courier, { CourierInterface } from '../model'
 
 const addCourierCtrl = async (req: Request, res: Response) => {
   try {
@@ -10,7 +10,7 @@ const addCourierCtrl = async (req: Request, res: Response) => {
       max_capacity,
       current_capacity: max_capacity
     })
-    await newCourier.save(err => {
+    await newCourier.save((err: any) => {
       if (err) return console.error(err)
     })
     res.sendStatus(201)
@@ -31,5 +31,19 @@ const removeCourierCtrl = async (req: Request, res: Response) => {
   }
 }
 
+const editCourierCtrl = async (req: Request, res: Response) => {
+  try {
+    const { id, capacity_change } = req.body
+    if (!id || !capacity_change) throw new Error('No courier id or capacity_change provided')
+    const result: CourierInterface[] = await Courier.find({ id })
+    const new_capacity = result[0].current_capacity + capacity_change
+    if (new_capacity < 0) throw new Error('courier overloaded')
+    await Courier.findOneAndUpdate({ id }, { current_capacity: new_capacity})
+    res.send(`Courier current_capacity updated. New capacity for courier id: ${id} = ${new_capacity}`)
+  } catch (error) {
+    res.send(error.message)
+  }
+}
 
-export { addCourierCtrl, removeCourierCtrl }
+
+export { addCourierCtrl, removeCourierCtrl, editCourierCtrl }
