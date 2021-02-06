@@ -1,10 +1,10 @@
 import express, { Request, Response} from 'express'
+import { addCourierCtrl } from '../controller'
+
 
 const router = express.Router()
 
-router.post('/couriers', (req: Request, res: Response) => {
-  res.send('create couriers route')
-})
+router.post('/couriers', addCourierCtrl)
 
 router.delete('/couriers', (req: Request, res: Response) => {
   res.send('delete couriers route')
