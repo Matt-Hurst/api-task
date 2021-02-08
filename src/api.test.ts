@@ -9,7 +9,7 @@ const testDatabase = 'test'
 
 const courier = {
    id: 1234,
-   max_capacity: 20
+   max_capacity: 25
 }
 
 const url = '/couriers'
@@ -42,7 +42,7 @@ afterAll(async () => {
           id: courier.id,
           new_capacity: 15 
       })
-      expect(result.text).toBe(`Courier current_capacity updated. New capacity for courier id: ${courier.id} = ${courier.max_capacity - 5}`)
+      expect(result.text).toBe(`Courier current_capacity updated. New capacity for courier id: ${courier.id} = 15`)
    })
    it('put /couriers =>should return error message if no id or new_capacity is given', async () => {
       const result = await request.put(url).send({
